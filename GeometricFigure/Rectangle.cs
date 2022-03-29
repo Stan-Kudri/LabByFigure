@@ -5,7 +5,11 @@
         private readonly int _width;
         private readonly int _height;
 
-        public Rectangle(string color, GeometricState state, int width, int height) : base(color, state)
+        public Rectangle(string color, GeometricState state, int width, int height) : this(color, state, width, height, 0, 0)
+        {
+        }
+
+        public Rectangle(string color, GeometricState state, int width, int height, int x, int y) : base(color, state, x, y)
         {
             if (width <= 0 || height <= 0)
                 throw new ArgumentException("Неверное значение сторон");
@@ -15,7 +19,17 @@
 
         public override Figure EditColor(string color)
         {
-            return new Rectangle(color, _state, _width, _height);
+            return new Rectangle(color, _state, _width, _height, _x, _y);
+        }
+
+        public override Figure MovinHorizontally(int x)
+        {
+            return new Rectangle(_color, _state, _width, _height, _x + x, _y);
+        }
+
+        public override Figure MovinVertically(int y)
+        {
+            return new Rectangle(_color, _state, _width, _height, _x, _y + y);
         }
 
         public double Area() => _width * _height;
@@ -27,7 +41,7 @@
             return false;
         }
 
-        public override string ToString() => $"Прямоугольник имеет {_color} цвет, {StateFigure()} состояние и площадь равную {Area()}";
+        public override string ToString() => $"Прямоугольник имеет {_color} цвет, {StateFigure()} состояние и площадь равную {Area()}. {Coordinates}";
 
         public override int GetHashCode()
         {

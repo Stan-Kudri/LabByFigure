@@ -12,24 +12,31 @@ namespace LabByFigure
     {
         protected readonly string _color;
         protected readonly GeometricState _state;
+        protected readonly int _x;
+        protected readonly int _y;
 
-        public Figure(string color, GeometricState state)
+        protected string Coordinates => $"Координаты по вертикали: {_x}; по горизонтали {_y}";
+
+        public Figure(string color, GeometricState state) : this(color, state, 0, 0)
+        {
+        }
+
+        protected Figure(string color, GeometricState state, int x, int y)
         {
             _color = color;
             _state = state;
+            _x = x;
+            _y = y;
         }
+
 
         public abstract Figure EditColor(string color);
 
         public bool VisibleState => _state == GeometricState.Visible;
 
-        public void MovinHorizontally()
-        {
-        }
+        public abstract Figure MovinHorizontally(int x);
 
-        public void MovinVertically()
-        {
-        }
+        public abstract Figure MovinVertically(int y);
 
         protected string StateFigure()
         {
@@ -47,7 +54,7 @@ namespace LabByFigure
             return false;
         }
 
-        public override string ToString() => $"Фигура имеет {_color} цвет и {StateFigure()} состояние";
+        public override string ToString() => $"Фигура имеет {_color} цвет и {StateFigure()} состояние. {Coordinates}";
 
         public override int GetHashCode()
         {

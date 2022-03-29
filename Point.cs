@@ -2,14 +2,29 @@
 {
     public class Point : Figure
     {
-        public Point(string color, GeometricState state) : base(color, state)
+        public Point(string color, GeometricState state) : this(color, state, 0, 0)
+        {
+
+        }
+
+        public Point(string color, GeometricState state, int x, int y) : base(color, state, x, y)
         {
 
         }
 
         public override Figure EditColor(string color)
         {
-            return new Point(color, _state);
+            return new Point(color, _state, _x, _y);
+        }
+
+        public override Figure MovinHorizontally(int x)
+        {
+            return new Point(_color, _state, _x + x, _y);
+        }
+
+        public override Figure MovinVertically(int y)
+        {
+            return new Point(_color, _state, _x, _y + y);
         }
 
         public bool Equals(Point figure)
@@ -19,7 +34,7 @@
             return false;
         }
 
-        public override string ToString() => $"Точка имеет {_color} цвет и {StateFigure()} состояние";
+        public override string ToString() => $"Точка имеет {_color} цвет и {StateFigure()} состояние. {Coordinates}";
 
         public override int GetHashCode()
         {

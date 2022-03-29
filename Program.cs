@@ -19,8 +19,19 @@
 */
 
 using LabByFigure;
+using LabByFigure.GeometricFigure;
 
-var fig = new Point("Синий", GeometricState.Visible);
-Console.WriteLine(fig);
-var newFig = fig.EditColor("Красный");
-Console.WriteLine(newFig);
+var point = new Point("Синий", GeometricState.Visible, 23, 24);
+Console.WriteLine(point);
+var newPoint = point.EditColor("Красный");
+Console.WriteLine(newPoint);
+newPoint = newPoint.MovinHorizontally(-54);
+newPoint = newPoint.MovinVertically(78);
+Console.WriteLine(newPoint);
+
+var circle = new Circle("Синий", GeometricState.Visible, 5, 23, 24);
+Console.WriteLine(circle);
+var newCircle = circle.EditColor("Голубой");
+newCircle = newCircle.MovinHorizontally(-77);
+newCircle = newCircle.MovinVertically(-23);
+Console.WriteLine(newCircle);

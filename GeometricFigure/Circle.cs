@@ -4,7 +4,11 @@
     {
         private readonly int _radius;
 
-        public Circle(string color, GeometricState state, int radius) : base(color, state)
+        public Circle(string color, GeometricState state, int radius) : this(color, state, radius, 0, 0)
+        {
+        }
+
+        public Circle(string color, GeometricState state, int radius, int x, int y) : base(color, state, x, y)
         {
             if (radius <= 0)
                 throw new ArgumentException("Неверное значение радиуса!");
@@ -13,7 +17,17 @@
 
         public override Figure EditColor(string color)
         {
-            return new Circle(color, _state, _radius);
+            return new Circle(color, _state, _radius, _x, _y);
+        }
+
+        public override Figure MovinHorizontally(int x)
+        {
+            return new Circle(_color, _state, _radius, _x + x, _y);
+        }
+
+        public override Figure MovinVertically(int y)
+        {
+            return new Circle(_color, _state, _radius, _x, _y + y);
         }
 
         public double Area() => 2 * Math.PI * Math.Sqrt(_radius);
@@ -25,7 +39,7 @@
             return false;
         }
 
-        public override string ToString() => $"Круг имеет {_color} цвет, {StateFigure()} состояние и площадь равную {Area()}";
+        public override string ToString() => $"Круг имеет {_color} цвет, {StateFigure()} состояние и площадь равную {Area():f3}. {Coordinates}";
 
         public override int GetHashCode()
         {

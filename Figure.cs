@@ -11,61 +11,45 @@ namespace LabByFigure
     public abstract class Figure
     {
         protected readonly string _color;
-        protected readonly GeometricState _state;
-        protected readonly int _x;
-        protected readonly int _y;
+        protected readonly bool _visible;
+        protected readonly Point _coordinates;
 
-        protected string Coordinates => $"Координаты по вертикали: {_x}; по горизонтали {_y}";
-
-        public Figure(string color, GeometricState state) : this(color, state, 0, 0)
+        public Figure(string color, bool visible) : this(color, visible, new Point(0, 0))
         {
         }
 
-        protected Figure(string color, GeometricState state, int x, int y)
+        protected Figure(string color, bool visible, Point coordinates)
         {
             _color = color;
-            _state = state;
-            _x = x;
-            _y = y;
+            _visible = visible;
+            _coordinates = coordinates;
         }
 
+        public abstract Figure WithColor(string color);
 
-        public abstract Figure EditColor(string color);
+        public abstract Figure MoveHorizontally(int x);
 
-        public bool VisibleState => _state == GeometricState.Visible;
+        public abstract Figure MoveVertically(int y);
 
-        public abstract Figure MovinHorizontally(int x);
-
-        public abstract Figure MovinVertically(int y);
-
-        protected string StateFigure()
-        {
-            if (_state == GeometricState.Invisible)
-                return "Не видимое";
-            else if (_state == GeometricState.Visible)
-                return "Видимое";
-            return string.Empty;
-        }
+        protected string StateFigure => !_visible ? "Не видимое" : "Видимое";
 
         public bool Equals(Figure figure)
         {
-            if (figure != null)
-                return GetHashCode() == figure.GetHashCode() && _color == figure._color;
-            return false;
+            return _color == figure._color && _visible == figure._visible && _coordinates.Equals(figure._coordinates) && GetHashCode() == figure.GetHashCode();
         }
 
-        public override string ToString() => $"Фигура имеет {_color} цвет и {StateFigure()} состояние. {Coordinates}";
+        public override string ToString() => $"Фигура имеет {_color} цвет и {StateFigure} состояние. {_coordinates}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_color, _state, GetType);
+            return HashCode.Combine(_color, _visible, _coordinates.GetHashCode(), GetType());
         }
 
         public override bool Equals(object? obj)
         {
-            if (obj == null)
-                return false;
-            return Equals(obj is Figure);
+            if (obj != null && obj.GetType() == typeof(Figure))
+                return obj.Equals(obj is Figure);
+            return false;
         }
     }
 }

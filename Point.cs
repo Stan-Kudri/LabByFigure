@@ -1,44 +1,24 @@
 ﻿namespace LabByFigure
 {
-    public class Point : Figure
+    public class Point
     {
-        public Point(string color, GeometricState state) : this(color, state, 0, 0)
-        {
+        public int X { get; }
+        public int Y { get; }
 
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
         }
 
-        public Point(string color, GeometricState state, int x, int y) : base(color, state, x, y)
+        public bool Equals(Point system)
         {
-
+            return X == system.X && Y == system.Y;
         }
-
-        public override Figure EditColor(string color)
-        {
-            return new Point(color, _state, _x, _y);
-        }
-
-        public override Figure MovinHorizontally(int x)
-        {
-            return new Point(_color, _state, _x + x, _y);
-        }
-
-        public override Figure MovinVertically(int y)
-        {
-            return new Point(_color, _state, _x, _y + y);
-        }
-
-        public bool Equals(Point figure)
-        {
-            if (figure != null)
-                return GetHashCode() == figure.GetHashCode() && _color == figure._color;
-            return false;
-        }
-
-        public override string ToString() => $"Точка имеет {_color} цвет и {StateFigure()} состояние. {Coordinates}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_color, _state, GetType);
+            return HashCode.Combine(X, Y);
         }
 
         public override bool Equals(object? obj)
@@ -46,6 +26,11 @@
             if (obj == null)
                 return false;
             return Equals(obj is Point);
+        }
+
+        public override string ToString()
+        {
+            return $"Координаты центра фигуры по вертикали: {X}; по горизонтали {Y}";
         }
     }
 }

@@ -21,17 +21,17 @@
 using LabByFigure;
 using LabByFigure.GeometricFigure;
 
-var point = new Point("Синий", GeometricState.Visible, 23, 24);
-Console.WriteLine(point);
-var newPoint = point.EditColor("Красный");
-Console.WriteLine(newPoint);
-newPoint = newPoint.MovinHorizontally(-54);
-newPoint = newPoint.MovinVertically(78);
-Console.WriteLine(newPoint);
 
-var circle = new Circle("Синий", GeometricState.Visible, 5, 23, 24);
+var circle = new Circle("Синий", true, 5, new Point(23, 24));
 Console.WriteLine(circle);
-var newCircle = circle.EditColor("Голубой");
-newCircle = newCircle.MovinHorizontally(-77);
-newCircle = newCircle.MovinVertically(-23);
+var newCircle = circle.WithColor("Голубой");
+newCircle = newCircle.MoveHorizontally(-77);
+newCircle = newCircle.MoveVertically(-23);
 Console.WriteLine(newCircle);
+
+var rectangle = new Rectangle("Черный", true, 10, 15);
+Console.WriteLine(rectangle);
+rectangle.PrintVertexCoordinat();
+Figure figure = rectangle;
+Console.WriteLine(figure);
+Console.WriteLine(figure.Equals(rectangle));

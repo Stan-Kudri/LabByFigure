@@ -24,14 +24,31 @@ using LabByFigure.GeometricFigure;
 
 var circle = new Circle("Синий", true, 5, new Point(23, 24));
 Console.WriteLine(circle);
-var newCircle = circle.WithColor("Голубой");
-newCircle = newCircle.MoveHorizontally(-77);
-newCircle = newCircle.MoveVertically(-23);
-Console.WriteLine(newCircle);
 
+Console.WriteLine();
+var newCircle = circle.WithColor("Голубой");
+newCircle = newCircle.Move(-77, -23);
+Console.WriteLine(newCircle);
+Console.WriteLine($"Equals ... класс Circle и класс Circle = {circle.Equals(newCircle)}");
+
+Figure figure1 = circle;
+Console.WriteLine();
+Console.WriteLine(figure1);
+Console.WriteLine($"Equals ... класс Figure(от Circle) и Circle = {figure1.Equals(circle)}");
+Console.WriteLine($"Equals ... класс Circle и класс Figure(от Circle) = {circle.Equals(figure1)}");
+
+Console.WriteLine();
 var rectangle = new Rectangle("Черный", true, 10, 15);
 Console.WriteLine(rectangle);
 rectangle.PrintVertexCoordinat();
-Figure figure = rectangle;
-Console.WriteLine(figure);
-Console.WriteLine(figure.Equals(rectangle));
+Figure figure2 = rectangle;
+Console.WriteLine(figure2);
+Console.WriteLine(figure2.Equals(rectangle));
+Console.WriteLine();
+
+figure2 = figure2.Move(-3, -33);
+Console.WriteLine();
+Console.WriteLine($"Equals ... класс Figure (Rectangle[изменены координаты точки] / Rectangle) = {figure2.Equals(rectangle)}");
+
+Console.WriteLine();
+Console.WriteLine($"Equals ... класс Figure (Circle / Rectangle) = {figure1.Equals(figure2)}");

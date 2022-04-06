@@ -8,7 +8,7 @@
 
 namespace LabByFigure
 {
-    public abstract class Figure
+    public abstract class Figure : IEquatable<Figure>
     {
         protected readonly string _color;
         protected readonly bool _visible;
@@ -27,29 +27,24 @@ namespace LabByFigure
 
         public abstract Figure WithColor(string color);
 
-        public abstract Figure MoveHorizontally(int x);
+        public abstract Figure Move(int x, int y);
 
-        public abstract Figure MoveVertically(int y);
+        protected string GetStateFigure() => !_visible ? "Не видимое" : "Видимое";
 
-        protected string StateFigure => !_visible ? "Не видимое" : "Видимое";
-
-        public bool Equals(Figure figure)
-        {
-            return _color == figure._color && _visible == figure._visible && _coordinates.Equals(figure._coordinates) && GetHashCode() == figure.GetHashCode();
-        }
-
-        public override string ToString() => $"Фигура имеет {_color} цвет и {StateFigure} состояние. {_coordinates}";
+        public override string ToString() => $"Фигура имеет {_color} цвет и {GetStateFigure()} состояние. {_coordinates}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_color, _visible, _coordinates.GetHashCode(), GetType());
+            return HashCode.Combine(_color, _visible, _coordinates.GetHashCode());
         }
 
         public override bool Equals(object? obj)
         {
-            if (obj != null && obj.GetType() == typeof(Figure))
-                return obj.Equals(obj is Figure);
+            if (obj is Figure figure)
+                return Equals(figure);
             return false;
         }
+
+        public abstract bool Equals(Figure? other);
     }
 }

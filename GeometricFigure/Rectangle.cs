@@ -22,10 +22,13 @@
         public void PrintVertexCoordinat()
         {
             Console.WriteLine("Печать координат вершин прямоугольника:");
-            Console.WriteLine($"[X = {_coordinates.X - _width}; Y = {_coordinates.Y + _height}]");
-            Console.WriteLine($"[X = {_coordinates.X - _width}; Y = {_coordinates.Y - _height}]");
-            Console.WriteLine($"[X = {_coordinates.X + _width}; Y = {_coordinates.Y - _height}]");
-            Console.WriteLine($"[X = {_coordinates.X + _width}; Y = {_coordinates.Y + _height}]");
+            for (var i = -1; i < 2; i += 2)
+            {
+                for (var j = -1; j < 2; j += 2)
+                {
+                    Console.WriteLine($"[X = {_coordinates.X + i * _width}; Y = {_coordinates.Y + j * _height}]");
+                }
+            }
         }
 
         public override Figure WithColor(string color)
@@ -33,35 +36,22 @@
             return new Rectangle(color, _visible, _width, _height, _coordinates);
         }
 
-        public override Figure MoveHorizontally(int x)
+        public override Figure Move(int x, int y)
         {
-            return new Rectangle(_color, _visible, _width, _height, new Point(_coordinates.X + x, _coordinates.Y));
+            return new Rectangle(_color, _visible, _width, _height, new Point(_coordinates.X + x, _coordinates.Y + y));
         }
 
-        public override Figure MoveVertically(int y)
-        {
-            return new Rectangle(_color, _visible, _width, _height, new Point(_coordinates.X, _coordinates.Y + y));
-        }
-
-        public bool Equals(Rectangle figure)
-        {
-            if (figure != null)
-                return _color == figure._color && _visible == figure._visible && _width == figure._width && _height == figure._height && _coordinates == figure._coordinates && GetHashCode() == figure.GetHashCode();
-            return false;
-        }
-
-        public override string ToString() => $"Прямоугольник имеет {_color} цвет, {StateFigure} состояние и площадь равную {Area}. {_coordinates}";
+        public override string ToString() => $"Прямоугольник имеет {_color} цвет, {GetStateFigure()} состояние и площадь равную {Area}. {_coordinates}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_color, _visible, _width, _height, _coordinates.GetHashCode(), GetType());
+            return HashCode.Combine(_color, _visible, _width, _height, _coordinates.GetHashCode());
         }
-
-        public override bool Equals(object? obj)
+        public override bool Equals(Figure? other)
         {
-            if (obj == null || obj.GetType() != typeof(Rectangle))
-                return false;
-            return Equals(obj is Rectangle);
+            if (other is Rectangle rectangle)
+                return _color == rectangle._color && _visible == rectangle._visible && _width == rectangle._width && _height == rectangle._height && _coordinates == rectangle._coordinates;
+            return false;
         }
     }
 }

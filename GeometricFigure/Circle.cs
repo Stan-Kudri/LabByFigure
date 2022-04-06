@@ -22,35 +22,23 @@
             return new Circle(color, _visible, _radius, _coordinates);
         }
 
-        public override Figure MoveHorizontally(int x)
+        public override Figure Move(int x, int y)
         {
-            return new Circle(_color, _visible, _radius, new Point(_coordinates.X + x, _coordinates.Y));
+            return new Circle(_color, _visible, _radius, new Point(_coordinates.X + x, _coordinates.Y + y));
         }
 
-        public override Figure MoveVertically(int y)
-        {
-            return new Circle(_color, _visible, _radius, new Point(_coordinates.X, _coordinates.Y + y));
-        }
-
-        public bool Equals(Circle figure)
-        {
-            if (figure == null)
-                return false;
-            return _color == figure._color && _radius == figure._radius && _visible == figure._visible && _coordinates == figure._coordinates && GetHashCode() == figure.GetHashCode();
-        }
-
-        public override string ToString() => $"Круг имеет {_color} цвет, {StateFigure} состояние и площадь равную {Area:f3}. {_coordinates}";
+        public override string ToString() => $"Круг имеет {_color} цвет, {GetStateFigure()} состояние и площадь равную {Area:f3}. {_coordinates}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_color, _visible, _radius, _coordinates.GetHashCode(), GetType());
+            return HashCode.Combine(_color, _visible, _radius, _coordinates.GetHashCode());
         }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(Figure? other)
         {
-            if (obj == null || obj.GetType() != typeof(Circle))
-                return false;
-            return Equals(obj is Circle);
+            if (other is Circle circle)
+                return _color == circle._color && _radius == circle._radius && _visible == circle._visible && _coordinates == circle._coordinates;
+            return false;
         }
     }
 }

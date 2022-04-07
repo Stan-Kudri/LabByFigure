@@ -8,11 +8,20 @@
 
 namespace LabByFigure
 {
-    public abstract class Figure : IEquatable<Figure>
+    public class Figure
     {
-        protected readonly string _color;
-        protected readonly bool _visible;
-        protected readonly Point _coordinates;
+        private readonly string _color;
+        private readonly bool _visible;
+        private readonly Point _coordinates;
+
+
+
+        public Figure(Figure figure)
+        {
+            _color = figure._color;
+            _visible = figure._visible;
+            _coordinates = figure._coordinates;
+        }
 
         public Figure(string color, bool visible) : this(color, visible, new Point(0, 0))
         {
@@ -25,13 +34,19 @@ namespace LabByFigure
             _coordinates = coordinates;
         }
 
-        public abstract Figure WithColor(string color);
+        public virtual Figure WithColor(string color)
+        {
+            return new Figure(color, _visible, _coordinates);
+        }
 
-        public abstract Figure Move(int x, int y);
+        public virtual Figure Move(Point coordinates)
+        {
+            return new Figure(_color, _visible, _coordinates.Move(coordinates));
+        }
 
         protected string GetStateFigure() => !_visible ? "Не видимое" : "Видимое";
 
-        public override string ToString() => $"Фигура имеет {_color} цвет и {GetStateFigure()} состояние. {_coordinates}";
+        public override string ToString() => $"Фигура имеет {_color} цвет и {GetStateFigure()} состояние и центр в точке{_coordinates}.";
 
         public override int GetHashCode()
         {
@@ -45,6 +60,11 @@ namespace LabByFigure
             return false;
         }
 
-        public abstract bool Equals(Figure? other);
+        public virtual bool Equals(Figure? other)
+        {
+            if (other is Figure figure)
+                return _color == figure._color && _visible == figure._visible && _coordinates == figure._coordinates;
+            return false;
+        }
     }
 }

@@ -27,7 +27,7 @@ Console.WriteLine(circle);
 
 Console.WriteLine();
 var newCircle = circle.WithColor("Голубой");
-newCircle = newCircle.Move(-77, -23);
+newCircle = newCircle.Move(new Point(-77, -23));
 Console.WriteLine(newCircle);
 Console.WriteLine($"Equals ... класс Circle и класс Circle = {circle.Equals(newCircle)}");
 
@@ -40,13 +40,13 @@ Console.WriteLine($"Equals ... класс Circle и класс Figure(от Circl
 Console.WriteLine();
 var rectangle = new Rectangle("Черный", true, 10, 15);
 Console.WriteLine(rectangle);
-rectangle.PrintVertexCoordinat();
+//rectangle.PrintVertexCoordinat();
 Figure figure2 = rectangle;
 Console.WriteLine(figure2);
 Console.WriteLine(figure2.Equals(rectangle));
 Console.WriteLine();
 
-figure2 = figure2.Move(-3, -33);
+figure2 = figure2.Move(new Point(-3, -33));
 Console.WriteLine();
 Console.WriteLine($"Equals ... класс Figure (Rectangle[изменены координаты точки] / Rectangle) = {figure2.Equals(rectangle)}");
 

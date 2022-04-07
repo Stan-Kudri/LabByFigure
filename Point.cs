@@ -11,6 +11,11 @@
             Y = y;
         }
 
+        public Point Move(Point coordinates)
+        {
+            return new Point(X + coordinates.X, Y + coordinates.Y);
+        }
+
         public bool Equals(Point system)
         {
             return X == system.X && Y == system.Y;
@@ -30,7 +35,7 @@
 
         public override string ToString()
         {
-            return $"Координаты центра фигуры по вертикали: {X}; по горизонтали {Y}";
+            return $"[{X}; {Y}]";
         }
     }
 }

@@ -38,9 +38,9 @@ Console.WriteLine($"Equals ... класс Figure(от Circle) и Circle = {figur
 Console.WriteLine($"Equals ... класс Circle и класс Figure(от Circle) = {circle.Equals(figure1)}");
 
 Console.WriteLine();
-var rectangle = new Rectangle("Черный", true, 10, 15);
+var rectangle = new Rectangle("Черный", false, 10, 15);
 Console.WriteLine(rectangle);
-//rectangle.PrintVertexCoordinat();
+PrintVertexCoordinat(rectangle._Vertices);
 Figure figure2 = rectangle;
 Console.WriteLine(figure2);
 Console.WriteLine(figure2.Equals(rectangle));
@@ -52,3 +52,13 @@ Console.WriteLine($"Equals ... класс Figure (Rectangle[изменены к�
 
 Console.WriteLine();
 Console.WriteLine($"Equals ... класс Figure (Circle / Rectangle) = {figure1.Equals(figure2)}");
+
+
+void PrintVertexCoordinat(Point[] points)
+{
+    Console.WriteLine("Печать координат вершин прямоугольника:");
+    for (var i = 0; i < 4; i++)
+    {
+        Console.WriteLine($"[X = {points[i].X}; Y = {points[i].Y}]");
+    }
+}

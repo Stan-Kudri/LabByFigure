@@ -2,12 +2,12 @@
 {
     public class Rectangle : Figure, IEquatable<Rectangle>
     {
-        private int Width;
-        private int Height;
+        private int width;
+        private int height;
 
-        public Point[] _Vertices => GetVerticesOfPoints();
+        public Point[] Vertices => GetVerticesOfPoints();
 
-        public double Area => Width * Height;
+        public double Area => width * height;
 
         public Rectangle(string color, bool visible, int width, int height) : this(color, visible, width, height, new Point(0, 0))
         {
@@ -15,15 +15,15 @@
 
         public Rectangle(string color, bool visible, int width, int height, Point coordinates) : base(color, visible, coordinates)
         {
-            CheckValidSideValue(width, height);
+            CheckValidSideAndSetValue(width, height);
         }
 
-        private void CheckValidSideValue(int width, int height)
+        private void CheckValidSideAndSetValue(int width, int height)
         {
             if (width <= 0 || height <= 0)
                 throw new ArgumentException("Неверное значение сторон");
-            Width = width;
-            Height = height;
+            this.width = width;
+            this.height = height;
         }
 
         private Point[] GetVerticesOfPoints()
@@ -34,7 +34,7 @@
             {
                 for (var j = -1; j < 2; j += 2)
                 {
-                    vertices[index] = Coordinates.Move(new Point(i * Width, j * Height));
+                    vertices[index] = Coordinate.Move(new Point(i * width, j * height));
                     index++;
                 }
             }
@@ -44,19 +44,19 @@
 
         public override Figure WithColor(string color)
         {
-            return new Rectangle(color, Visible, Width, Height, Coordinates);
+            return new Rectangle(color, Visible, width, height, Coordinate);
         }
 
         public override Figure Move(Point coordinates)
         {
-            return new Rectangle(Color, Visible, Width, Height, coordinates);
+            return new Rectangle(Color, Visible, width, height, coordinates);
         }
 
         public override string ToString() => $"{base.ToString()} Прямоугольник имеет площадь равную {Area:f3}";
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(base.GetHashCode(), Width, Height);
+            return HashCode.Combine(base.GetHashCode(), width, height);
         }
         public override bool Equals(Figure? other)
         {
@@ -65,8 +65,8 @@
 
         public bool Equals(Rectangle? other)
         {
-            if (other is Rectangle rectangle)
-                return base.Equals(other) && Width == rectangle.Width && Height == rectangle.Height;
+            if (other != null)
+                return other is Rectangle rectangle ? base.Equals(other) && width == rectangle.width && height == rectangle.height : false;
             return false;
         }
     }

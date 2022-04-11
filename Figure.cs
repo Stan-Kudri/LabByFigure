@@ -12,7 +12,9 @@ namespace LabByFigure
     {
         protected string Color { get; }
         protected bool Visible { get; }
-        protected Point Coordinates { get; }
+        protected Point Coordinate { get; }
+
+        private string Condition => Visible ? "Видимое" : "Не видимое";
 
         public Figure(string color, bool visible) : this(color, visible, new Point(0, 0))
         {
@@ -22,7 +24,7 @@ namespace LabByFigure
         {
             Color = color;
             Visible = visible;
-            Coordinates = coordinates;
+            Coordinate = coordinates;
         }
 
         public abstract Figure WithColor(string color);
@@ -33,13 +35,13 @@ namespace LabByFigure
         {
             return string.Format("Фигура имеет {0} цвет и {1} состояние и центр в точке{2}.",
                                                                                             Color,
-                                                                                            (Visible ? "Видимое" : "Не видимое"),
-                                                                                            Coordinates.ToString());
+                                                                                            Condition,
+                                                                                            Coordinate.ToString());
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Color, Visible, Coordinates.GetHashCode());
+            return HashCode.Combine(Color, Visible, Coordinate.GetHashCode());
         }
 
         public override bool Equals(object? obj)
@@ -51,7 +53,7 @@ namespace LabByFigure
 
         public virtual bool Equals(Figure? other)
         {
-            return other != null && Color == other.Color && Visible == other.Visible && Coordinates == other.Coordinates;
+            return other != null && Color == other.Color && Visible == other.Visible && Coordinate == other.Coordinate;
         }
     }
 }

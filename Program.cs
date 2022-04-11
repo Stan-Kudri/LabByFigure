@@ -40,7 +40,7 @@ Console.WriteLine($"Equals ... класс Circle и класс Figure(от Circl
 Console.WriteLine();
 var rectangle = new Rectangle("Черный", false, 10, 15);
 Console.WriteLine(rectangle);
-PrintVertexCoordinat(rectangle._Vertices);
+PrintVertexCoordinat(rectangle.Vertices);
 Figure figure2 = rectangle;
 Console.WriteLine(figure2);
 Console.WriteLine(figure2.Equals(rectangle));

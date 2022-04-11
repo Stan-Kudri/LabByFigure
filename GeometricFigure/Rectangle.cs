@@ -63,11 +63,6 @@
             return Equals(other as Rectangle);
         }
 
-        public bool Equals(Rectangle? other)
-        {
-            if (other != null)
-                return other is Rectangle rectangle ? base.Equals(other) && width == rectangle.width && height == rectangle.height : false;
-            return false;
-        }
+        public bool Equals(Rectangle? other) => other == null ? false : base.Equals(other) && width == other.width && height == other.height;
     }
 }

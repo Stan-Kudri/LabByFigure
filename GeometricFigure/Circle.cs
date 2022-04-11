@@ -44,11 +44,6 @@
             return Equals(other as Circle);
         }
 
-        public bool Equals(Circle? other)
-        {
-            if (other != null)
-                return other is Circle circle ? base.Equals(other) && radius == circle.radius : false;
-            return false;
-        }
+        public bool Equals(Circle? other) => other == null ? false : base.Equals(other) && radius == other.radius;
     }
 }

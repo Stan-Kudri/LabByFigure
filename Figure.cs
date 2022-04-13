@@ -14,8 +14,6 @@ namespace LabByFigure
         protected bool Visible { get; }
         protected Point Coordinate { get; }
 
-        private string Condition => Visible ? "Видимое" : "Не видимое";
-
         public Figure(string color, bool visible) : this(color, visible, new Point(0, 0))
         {
         }
@@ -33,10 +31,11 @@ namespace LabByFigure
 
         public override string ToString()
         {
+            var сondition = Visible ? "Видимое" : "Не видимое";
             return string.Format("Фигура имеет {0} цвет и {1} состояние и центр в точке{2}.",
                                                                                             Color,
-                                                                                            Condition,
-                                                                                            Coordinate.ToString());
+                                                                                            сondition,
+                                                                                            Coordinate);
         }
 
         public override int GetHashCode()
